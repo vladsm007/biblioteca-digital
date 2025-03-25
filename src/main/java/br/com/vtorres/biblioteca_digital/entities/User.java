@@ -1,32 +1,33 @@
 package br.com.vtorres.biblioteca_digital.entities;
 
-
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-
+@Setter
+@Getter
 @Entity
 @Table(name = "tb_users")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+
     private String name;
-    @NotNull
     private String email;
+
+    public User() {
+    }
+
+    public User(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 }
