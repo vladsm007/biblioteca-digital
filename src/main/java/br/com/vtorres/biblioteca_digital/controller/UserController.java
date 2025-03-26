@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/users")
@@ -18,6 +20,7 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+    //end-point para a criação de novos usuários
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user){
         User createdUser = userService.createUser(user);
@@ -43,9 +46,13 @@ public class UserController {
    }
 
    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+   @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Map<String, String>> deleteUser(@PathVariable Long id) {
+       Map<String, String> deletedMessage = new HashMap<>();
+       deletedMessage.put("mensagem: ", "deletado com sucesso");
+       deletedMessage.put("id", id.toString());
         userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(deletedMessage);
    }
 
    @GetMapping("/search")
